@@ -79,9 +79,9 @@ HOW TO START
      
   and run with `evo` or `./evo`. Take a look at the output. 
 
-  B2a) (optional but highly recommended) Invoke Scilab (freely available
-     for Linux/Windows/Mac) or Matlab/Octave, change to the working directory 
-     and type (Scilab)
+  B2a) (optional but highly recommended: plotting) Invoke Scilab (freely 
+     available for Linux/Windows/Mac) or Matlab/Octave, change to the 
+     working directory and type (Scilab)
         `getf('plotcmaesdat.sci'); plotcmaesdat;` 
      or (Matlab/Octave)
         `plotcmaesdat;`
