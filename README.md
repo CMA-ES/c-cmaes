@@ -74,7 +74,7 @@ HOW TO START
      are defined. 
 
   B1) Compile and run the example program. Compilation e.g. with 
-     the GNU c-compiler:
+     the GNU c-compiler in the src folder:
 
 	gcc -Wall -o evo cmaes.c example_short.c -lm
      
@@ -117,7 +117,7 @@ HOW TO START
 
 
 Questions? [go here](https://github.com/cma-es/c-cma-es/issues/new) or 
-send and email to hansen at lri dot fr. 
+send an email to hansen at lri dot fr. 
 
 See also: 
 - [Practical hints](https://www.lri.fr/~hansen/cmaes_inmatlab.html#practical)
