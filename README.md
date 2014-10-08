@@ -1,7 +1,7 @@
 c-cma-es
 ========
 
-CMA-ES written in ANSI C
+CMA-ES written in ANSI C in object oriented style. 
 
 For the general purpose of this software see `doc.txt`, for more
 documentation `docfunctions.txt`, for how to start see below.
@@ -12,9 +12,9 @@ Files in this Repository
 ------------------------
 
 - README.md : this file
-- LICENSE : users agreement
+- LICENSE : users agreement (no worries)
 - doc.txt : describes general purpose and an application issue
-- docfunctions.txt : documentation of the library functions. 
+- docfunctions.txt : Documentation of the library functions. 
 - cmaes_interface.h : User interface header.   
 - example_short.c : Very short example source code. The purpose of
                the example codes is to be edited/extended.  
