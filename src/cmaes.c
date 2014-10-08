@@ -2,23 +2,30 @@
 /* --- File: cmaes.c  -------- Author: Nikolaus Hansen   --- */
 /* --------------------------------------------------------- */
 /*   
-     CMA-ES for non-linear function minimization. 
+    CMA-ES for non-linear function minimization. 
 
-     Copyright 1996, 2003, 2007, 2013 Nikolaus Hansen
-     e-mail: hansen .AT. lri.fr
+    Copyright 1996, 2003, 2007, 2013 Nikolaus Hansen
+    e-mail: hansen .AT. lri.fr
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of either the GNU General Public License, version 2,
-    or, the GNU Lesser General Public License, version 2.1 or later, as
-    published by the Free Software Foundation.
+    SOURCE: 
+        https://github.com/cma-es/c-cma-es
+        https://github.com/cma-es/c-cma-es/blob/master/src/cmaes.c
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    LICENSE: this library is free/open software and may be used 
+    either under the
+        
+        Apache License 2.0
 
-    See <http://www.gnu.org/licenses/>.
-
+    or under the
+   
+        GNU Lesser General Public License 2.1 or later
+        
+    whichever suits best. 
+    
+    See also the LICENSE file
+    https://github.com/cma-es/c-cma-es/blob/master/LICENSE 
 */
+
 /* --- Changes : --- 
   03/03/21: argument const double *rgFunVal of
             cmaes_ReestimateDistribution() was treated incorrectly.
