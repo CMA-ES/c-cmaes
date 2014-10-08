@@ -9,33 +9,37 @@ documentation docfunctions.txt, for how to start see below.
 ------------------------------------------------------------------
 
 DELIVERED FILES
-  readme : this file
-  doc.txt : describes general purpose and an application issue
-  docfunctions.txt : documentation of the library functions. 
-  cmaes_interface.h : User interface header.   
-  example_short.c : Very short example source code. The purpose of
+---------------
+
+- readme : this file
+- doc.txt : describes general purpose and an application issue
+- docfunctions.txt : documentation of the library functions. 
+- cmaes_interface.h : User interface header.   
+- example_short.c : Very short example source code. The purpose of
                the example codes is to be edited/extended.  
-  example_restarts.c : implements additional restarts with increasing
+- example_restarts.c : implements additional restarts with increasing
                population size (Auger & Hansen 2005). 
-  example_boundary.c : combination with boundary handling (box 
+- example_boundary.c : combination with boundary handling (box 
      constraints)
-  example_noise.c : (future versions) implements an additional 
+- example_noise.c : (future versions) implements an additional 
                uncertainty handling (Hansen et al 2009). 
-  cmaes.h : Header, e.g. declaration of struct cmaes_t.  
-  cmaes.c : Source code. 
-  initials.par : Parameters to be read by the cmaes, e.g. problem
+- cmaes.h : Header, e.g. declaration of struct cmaes_t.  
+- cmaes.c : Source code.
+- initials.par : Parameters to be read by the cmaes, e.g. problem
       dimension, initial search point and initial standard deviation. 
       This file should be edited. 
-  signals.par : File for controlling the running program. Printing 
+- signals.par : File for controlling the running program. Printing 
       or writing to a file/console can be set on/off while the program 
       is running. Regular termination can be forced. On delivery
       the writing is in accordance with the plotting using: 
-  plotcmaesdat.m : Plots default output files in Matlab or Octave.
-  plotcmaesdat.sci : Plots default output files in Scilab. 
-  boundary_transformation.c : implements a boundary transformation
-  boundary_transformation.h : header file. 
+- plotcmaesdat.m : Plots default output files in Matlab or Octave.
+- plotcmaesdat.sci : Plots default output files in Scilab. 
+- boundary_transformation.c : implements a boundary transformation
+- boundary_transformation.h : header file. 
 
 FILES YOU MAY NEED TO EDIT
+--------------------------
+
   example_*.c:  Plug in the objective function (pointer) that should 
     be minimized. 
   cmaes_initials.par: Parameter file for changing e.g. initial values and
@@ -44,7 +48,9 @@ FILES YOU MAY NEED TO EDIT
     runtime. 
 
 
-Output files written by cmaes_t: 
+Output files written by cmaes_t
+-------------------------------
+
   actparcmaes.par : Parameters as actually used by the program. The
                     actual parameter setting is appended to the file  
                     after each start of the cmaes. 
@@ -52,7 +58,9 @@ Output files written by cmaes_t:
 
 
 ------------------------------------------------------------------
-HOW TO START:
+
+HOW TO START
+------------
 
   0) Unpack tar ball: under Linux, MSYS, etc... typing 
      "tar -xzf cmaes_c.tar.gz" unpacks all files into a folder cma.
