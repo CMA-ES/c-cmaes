@@ -1,6 +1,18 @@
 # Mac
 .DS_Store
 
+# compilation and output
+evoshort
+evobounds
+evorestarts
+actparcmaes.par
+outcmaesxrecentbest.dat
+outcmaesxmean.dat
+outcmaesstddev.dat
+outcmaesfit.dat
+outcmaesaxlen.dat
+allcmaes.dat
+
 # Object files
 *.o
 *.ko
