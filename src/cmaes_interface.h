@@ -8,7 +8,9 @@
 
      Copyright (C) 1996, 2003, 2007 Nikolaus Hansen. 
      e-mail: hansen AT lri.fr
-
+     
+     Documentation: see file docfunctions.txt
+     
      License: see file cmaes.c
 */
 #include "cmaes.h"
