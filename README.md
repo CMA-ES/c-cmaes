@@ -116,7 +116,8 @@ HOW TO START
   7) output files are overwritten with each program call.  
 
 
-Questions? [go here](https://github.com/cma-es/c-cma-es/issues/new)
+Questions? [go here](https://github.com/cma-es/c-cma-es/issues/new) or 
+send and email to hansen at lri dot fr. 
 
 See also: 
 - [Practical hints](https://www.lri.fr/~hansen/cmaes_inmatlab.html#practical)
