@@ -62,31 +62,34 @@ Output files written by cmaes_t
 HOW TO START
 ------------
 
-  0) Unpack tar ball: under Linux, MSYS, etc... typing 
-     "tar -xzf cmaes_c.tar.gz" unpacks all files into a folder cma.
-
-  A1) Take five minutes to look at file example_short.c. 
+  0) get code via `git ...` or download button
+  
+  A1) Take five minutes to look at file `example_short.c`. 
 
   A2) You might have a glance at the documentation provided in file
-     docfunctions.txt.
+     `docfunctions.txt`.
 
-  A3) You might have a glance at initials.par, where input parameters
+  A3) You might have a glance at `cmaes_initials.par`, where input parameters
      are defined. 
 
   B1) Compile and run the example program. Compilation e.g. with 
      the GNU c-compiler:
-	"gcc -Wall -o evo cmaes.c example_short.c -lm"
-     and run with "evo" or "./evo". Take a look at the output. 
+
+	gcc -Wall -o evo cmaes.c example_short.c -lm
+     
+  and run with `evo` or `./evo`. Take a look at the output. 
 
   B2a) (optional but highly recommended) Invoke Scilab (freely available
      for Linux/Windows/Mac) or Matlab/Octave, change to the working directory 
      and type (Scilab)
-        getf('plotcmaesdat.sci'); plotcmaesdat; 
+        `getf('plotcmaesdat.sci'); plotcmaesdat;` 
      or (Matlab/Octave)
-        plotcmaesdat;
-     You need to have the file plotcmaesdat.sci or .m and the
+        `plotcmaesdat;`
+     You need to have the file `plotcmaesdat.sci` or `.m` and the
      output data files in the working directory. You get a nice plot
      of the executed run.
+     The same works with [`cma.py`](https://pypi.python.org/pypi/cma) via
+       `python cma.py plot`
 
   B2b) (optional) Change (increase) problem dimension and/or problem
      number in file initials.par and re-run.
@@ -98,13 +101,13 @@ HOW TO START
 
   B2d) Change back problem dimension.  
 
-  5) Now you are ready to inspect and edit example_restarts.c or example_boundary.c
-    to plug in the function you want to optimize. Refer to doc.txt for
+  5) Now you are ready to inspect and edit `example_restarts.c` or `example_boundary.c`
+    to plug in the function you want to optimize. Refer to `doc.txt` and [see here]("https://www.lri.fr/~hansen/cmaes_inmatlab.html#practical") for
     a practical issue on objective function design. Refer to
-    docfunctions.txt to find more documentation about the functions in 
+    `docfunctions.txt` to find more documentation about the functions in 
     this package. 
 
-  6) Check "obligatory settings" part in initials.par regarding your
+  6) Check "obligatory settings" part in `initials.par` regarding your
      function. Make sure that the scale of all objective parameter
      components of the function is somewhat similar and sigma
      corresponds to about 1/4 of the respective search intervals.
