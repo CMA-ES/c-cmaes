@@ -52,9 +52,9 @@ Output files written by cmaes_t
 -------------------------------
 
 - actparcmaes.par : Parameters as actually used by the program. The
-                    actual parameter setting is appended to the file  
-                    after each start of the cmaes. 
-- errcmaes.err  : Error messages. 
+    actual parameter setting is appended to the file after each start 
+    of the cmaes. 
+- errcmaes.err : Error messages. 
 
 
 ------------------------------------------------------------------
