@@ -3,8 +3,8 @@ c-cma-es
 
 CMA-ES written in ANSI C
 
-For the general purpose of this software see doc.txt, for more
-documentation docfunctions.txt, for how to start see below.
+For the general purpose of this software see `doc.txt`, for more
+documentation `docfunctions.txt`, for how to start see below.
 
 ------------------------------------------------------------------
 
@@ -123,3 +123,4 @@ See also:
 - [Practical hints](https://www.lri.fr/~hansen/cmaes_inmatlab.html#practical)
 - [CMA-ES short intro](https://www.lri.fr/~hansen/cmaesintro.html)
 - [CMA-ES on wikipedia](http://en.wikipedia.org/wiki/CMA-ES)
+
