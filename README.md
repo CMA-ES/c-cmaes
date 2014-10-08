@@ -8,7 +8,7 @@ documentation docfunctions.txt, for how to start see below.
 
 ------------------------------------------------------------------
 
-DELIVERED FILES
+Delivered Files
 ---------------
 
 - readme : this file
@@ -37,7 +37,7 @@ DELIVERED FILES
 - boundary_transformation.c : implements a boundary transformation
 - boundary_transformation.h : header file. 
 
-FILES YOU MAY NEED TO EDIT
+Files You May Need to Edit
 --------------------------
 
 - example_*.c:  Plug in the objective function (pointer) that should 
@@ -60,7 +60,7 @@ Output files written by cmaes_t
 ------------------------------------------------------------------
 
 HOW TO START
-------------
+============
 
   0) get code via `git ...` or download button
   
@@ -114,4 +114,4 @@ HOW TO START
 
   7) output files are overwritten with each program call.  
 
-Questions? Mail to hansen [at] lri.fr
+Questions? [go here](https://github.com/cma-es/c-cma-es/issues/new)
