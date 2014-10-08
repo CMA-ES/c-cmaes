@@ -40,21 +40,21 @@ DELIVERED FILES
 FILES YOU MAY NEED TO EDIT
 --------------------------
 
-  example_*.c:  Plug in the objective function (pointer) that should 
+- example_*.c:  Plug in the objective function (pointer) that should 
     be minimized. 
-  cmaes_initials.par: Parameter file for changing e.g. initial values and
+- cmaes_initials.par: Parameter file for changing e.g. initial values and
     stopping criteria without recompiling. 
-  cmaes_signals.par: File to control termination and output during 
+- cmaes_signals.par: File to control termination and output during 
     runtime. 
 
 
 Output files written by cmaes_t
 -------------------------------
 
-  actparcmaes.par : Parameters as actually used by the program. The
+- actparcmaes.par : Parameters as actually used by the program. The
                     actual parameter setting is appended to the file  
                     after each start of the cmaes. 
-  errcmaes.err  : Error messages. 
+- errcmaes.err  : Error messages. 
 
 
 ------------------------------------------------------------------
