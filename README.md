@@ -26,10 +26,10 @@ Files in this Repository
                uncertainty handling (Hansen et al 2009). 
 - cmaes.h : Header, e.g. declaration of struct cmaes_t.  
 - cmaes.c : Source code.
-- initials.par : Parameters to be read by the cmaes, e.g. problem
+- cmaes_initials.par : Parameters to be read by the cmaes, e.g. problem
       dimension, initial search point and initial standard deviation. 
       This file should be edited. 
-- signals.par : File for controlling the running program. Printing 
+- cmaes_signals.par : File for controlling the running program. Printing 
       or writing to a file/console can be set on/off while the program 
       is running. Regular termination can be forced. On delivery
       the writing is in accordance with the plotting using: 
