@@ -3,8 +3,10 @@ c-cmaes
 
 CMA-ES written in ANSI C in a fairly object-oriented style. 
 
-For the general purpose of this software see `doc.txt`, for more
-documentation `docfunctions.txt`, for how to start see below.
+For the general purpose of this software see `doc.txt` or 
+[here](https://www.lri.fr/~hansen/cmaesintro.html), 
+for more documentation on this library see `docfunctions.txt`, 
+for how to start see below.
 
 ------------------------------------------------------------------
 
