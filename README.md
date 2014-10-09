@@ -1,5 +1,5 @@
-c-cma-es
-========
+c-cmaes
+=======
 
 CMA-ES written in ANSI C in object oriented style. 
 
