@@ -1,7 +1,7 @@
 c-cmaes
 =======
 
-CMA-ES written in ANSI C in object oriented style. 
+CMA-ES written in ANSI C in a fairly object-oriented style. 
 
 For the general purpose of this software see `doc.txt`, for more
 documentation `docfunctions.txt`, for how to start see below.
