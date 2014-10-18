@@ -13,6 +13,7 @@ outcmaesstddev.dat
 outcmaesfit.dat
 outcmaesaxlen.dat
 allcmaes.dat
+err*.err
 
 # Object files
 *.o
