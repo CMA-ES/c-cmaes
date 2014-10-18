@@ -2959,7 +2959,8 @@ static char * new_string(const char *ins)
   static char s[170];
   unsigned i; 
   char *p; 
-  unsigned len = (unsigned) strlen(ins);
+  unsigned len = (unsigned) (ins != NULL ? strlen(ins) : 0);
+  
   if (len > 1000) {
     FATAL("new_string(): input string length was larger then 1000 ",
         "(possibly due to uninitialized char *filename)",0,0);
