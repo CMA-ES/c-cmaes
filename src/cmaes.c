@@ -2987,7 +2987,10 @@ static void assign_string(char ** pdests, const char *ins)
 {
     if (*pdests)
         free(*pdests);
-    *pdests = new_string(ins);
+    if (ins == NULL)
+      *pdests = NULL;
+    else    
+      *pdests = new_string(ins);
 }
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
