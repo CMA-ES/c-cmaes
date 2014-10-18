@@ -2705,6 +2705,12 @@ readpara_WriteToFile(readpara_t *t, const char *filenamedest)
 /* --------------------------------------------------------- */
 void 
 readpara_SupplementDefaults(readpara_t *t)
+/* Called (only) once to finally set parameters. The settings
+ * typically depend on the current parameter values itself,
+ * where 0 or -1 may indicate to set them to a certain default
+ * value. For this reason calling `SupplementDefaults` twice
+ * might lead to unexpected results. 
+*/
 {
   double t1, t2;
   int N = t->N; 
