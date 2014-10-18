@@ -11,7 +11,37 @@ Then, what follows is the more detailed documentation of the
 functions from cmaes_interface.h.  
 
 double * 
+cmaes_init_final(cmaes_t * evo_ptr);
+
+    Input parameters: 
+        evo_ptr: Pointer to CMA-ES struct cmaes_t that will be initialized 
+                 within cmaes_init_final. evo_ptr->sp must have been
+                 initialized using cmaes_init_para(evo_ptr, ...)
+                 where the eclipses denote the same parameters as described
+                 in cmaes_init(evo_ptr, ...) below.
+  
+    Details:
+      This initializer allows to set values in readpara_t evo_ptr->sp "manually"
+      in the code instead of via the parameter file only. See readpara_t type.
+      
+    Example:
+      cmaes_t evo;
+      double *arf;
+      
+      if (shortcase)
+        arf = cmaes_init(&evo, ...);
+      else {
+        cmaes_init_para(&evo, ...);
+        evo.sp.stopMaxIter = 1234;
+        arf = cmaes_init_final(&evo);
+      }
+
+double * 
 cmaes_init(cmaes_t * evo_ptr, int dimension , 
+           double *initialX, double *initialStdDev,
+	   long seed, int lambda, const char *input_parameter_filename);
+void
+cmaes_init_para(cmaes_t * evo_ptr, int dimension , 
            double *initialX, double *initialStdDev,
 	   long seed, int lambda, const char *input_parameter_filename);
 
@@ -25,7 +55,9 @@ cmaes_init(cmaes_t * evo_ptr, int dimension ,
 
     Input parameters: 
         evo_ptr: Pointer to CMA-ES struct cmaes_t will be initialized 
-                 within cmaes_init
+                 within cmaes_init. When using cmaes_init_para, also
+                 cmaes_init_final needs to be called before evo_ptr is
+                 properly initialized. 
 
     Optional (default values invoked by zero): 
         dimension, int : Search space dimension N. Must be defined here
