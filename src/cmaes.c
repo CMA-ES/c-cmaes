@@ -2598,7 +2598,7 @@ readpara_ReadFromFile(readpara_t *t, const char * filename)
   }
   t->filename = NULL; /* nothing read so far */
   fp = fopen( filename, "r"); 
-  if(fp == NULL) {
+  if (fp == NULL) {
     ERRORMESSAGE("cmaes_ReadFromFile(): could not open '", filename, "'",0);
     return;
   }
@@ -2772,6 +2772,7 @@ readpara_SupplementDefaults(readpara_t *t)
   t->updateCmode.modulo *= t->facupdateCmode;
   if (t->updateCmode.maxtime < 0)
     t->updateCmode.maxtime = 0.20; /* maximal 20% of CPU-time */
+  t->flgsupplemented = 1;
 
 } /* readpara_SupplementDefaults() */
 
