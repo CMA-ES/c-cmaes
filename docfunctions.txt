@@ -201,7 +201,7 @@ cmaes_ReSampleSingle_old(cmaes_t evo_ptr, double *x)
 
     Details: Can be called after cmaes_SamplePopulation to 
       resample single solutions. In general,
-      the function can be used tos ample as many independent 
+      the function can be used to sample as many independent 
       mean+sigma*Normal(0,C) distributed vectors as desired. 
 
 double * x
