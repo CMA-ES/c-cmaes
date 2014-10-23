@@ -79,9 +79,9 @@ cmaes_init_para(cmaes_t * evo_ptr, int dimension ,
             solutions per generation. 
 
         input_parameter_filename, char *: File which should be edited
-            properly. Filename "non" omits reading and writing of any
-            parameters in cmaes_init(), "writeonly" omits reading but
-            still writes used parameters to file "actparcmaes.par".
+            properly. Filename "no", "non" or "none" omits reading and 
+            writing of any parameters in cmaes_init(), "writeonly" omits 
+            reading but still writes used parameters to file "actparcmaes.par".
 
     Return, double *: array of size lambda==popsize that can be
              used to assign fitness values and pass them to
