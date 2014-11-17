@@ -1,5 +1,6 @@
 # Mac
 .DS_Store
+*.komodoproject
 
 # compilation and output
 evoshort
@@ -12,6 +13,7 @@ outcmaesstddev.dat
 outcmaesfit.dat
 outcmaesaxlen.dat
 allcmaes.dat
+err*.err
 
 # Object files
 *.o

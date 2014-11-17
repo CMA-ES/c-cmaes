@@ -96,6 +96,10 @@
   14/04/29: removed bug, au = t->al[...], from the (new) boundary handling 
             code (thanks to Emmanuel Benazera for the hint) 
   14/06/16: test of un-initialized version number removed (thanks to Paul Zimmermann)
+  14/10/18: splitted cmaes_init() into cmaes_init_para() and cmaes_init_final(),
+            such that parameters can be set also comparatively safely within the
+            code, namely after calling cmaes_init_para(). The order of parameters
+            of readpara_init() has changed to be the same as for cmaes_init(). 
   14/11/16: rename exported symbols so they begin with a cmaes_ prefix.
 
   Wish List
@@ -156,9 +160,9 @@ double cmaes_timings_update(cmaes_timings_t *timing);
 void   cmaes_timings_tic(cmaes_timings_t *timing);
 double cmaes_timings_toc(cmaes_timings_t *timing);
 
-void cmaes_readpara_init (cmaes_readpara_t *, int dim, int seed,
-                          const double * xstart, const double * sigma,
-                          int lambda, const char * filename);
+void cmaes_readpara_init (cmaes_readpara_t *, int dim, const double * xstart, 
+                          const double * sigma, int seed, int lambda,
+                          const char * filename);
 void cmaes_readpara_exit(cmaes_readpara_t *);
 void cmaes_readpara_ReadFromFile(cmaes_readpara_t *, const char *szFileName);
 void cmaes_readpara_SupplementDefaults(cmaes_readpara_t *);
@@ -213,6 +217,8 @@ static void * new_void( int n, size_t size);
 static char * new_string( const char *); 
 static void assign_string( char **, const char*);
 
+static const char * c_cmaes_version = "3.20.00.beta";
+
 /* --------------------------------------------------------- */
 /* ---------------- Functions: cmaes_t --------------------- */
 /* --------------------------------------------------------- */
@@ -240,8 +246,10 @@ cmaes_SayHello(cmaes_t *t)
   return t->sOutString; 
 }
 
-double * 
-cmaes_init(cmaes_t *t, /* "this" */
+/* --------------------------------------------------------- */
+/* --------------------------------------------------------- */
+void
+cmaes_init_para(cmaes_t *t, /* "this" */
                 int dimension, 
                 double *inxstart,
                 double *inrgstddev, /* initial stds */
@@ -249,21 +257,37 @@ cmaes_init(cmaes_t *t, /* "this" */
                 int lambda, 
                 const char *input_parameter_filename) 
 {
+  t->version = c_cmaes_version;
+  readpara_init(&t->sp, dimension, inxstart, inrgstddev, inseed, 
+                   lambda, input_parameter_filename);
+}
+
+double * 
+cmaes_init_final(cmaes_t *t /* "this" */)
+/*
+ * */
+{
   int i, j, N;
   double dtest, trace;
-  static const char * version = "3.11.03.beta"; 
   
-/*  
-  if (t->version && strcmp(version, t->version) == 0) {
-        ERRORMESSAGE("cmaes_init called twice, which will lead to a memory leak, use cmaes_exit first",0,0,0);
-        printf("Warning: cmaes_init called twice, which will lead to a memory leak, use cmaes_exit first\n");
+  if (t->version == NULL) {
+        ERRORMESSAGE("cmaes_init_final called (probably) without calling cmaes_init_para first",
+                     ", which will likely lead to unexpected results",0,0);
+        printf("Warning: cmaes_init_final called (probably) without calling cmaes_init_para first\n");
   }
-*/
-  t->version = version;
+  if (strcmp(c_cmaes_version, t->version) != 0) {
+        ERRORMESSAGE("cmaes_init_final called twice, which will lead to a memory leak",
+                     "; use cmaes_exit() first",0,0);
+        printf("Warning: cmaes_init_final called twice, which will lead to a memory leak; use cmaes_exit first\n");
+  }
   /* assign_string(&t->signalsFilename, "cmaes_signals.par"); */
 
-  cmaes_readpara_init (&t->sp, dimension, inseed, inxstart, inrgstddev, 
-                   lambda, input_parameter_filename);
+  if (!t->sp.flgsupplemented) {
+    cmaes_readpara_SupplementDefaults(&t->sp);
+    if (!isNoneStr(t->sp.filename))
+      cmaes_readpara_WriteToFile(&t->sp, "actparcmaes.par");
+  }
+     
   t->sp.seed = cmaes_random_init( &t->rand, (long unsigned int) t->sp.seed);
 
   N = t->sp.N; /* for convenience */
@@ -358,7 +382,24 @@ cmaes_init(cmaes_t *t, /* "this" */
 
   return (t->publicFitness); 
 
-} /* cmaes_init() */
+} /* cmaes_init_final() */
+
+
+/* --------------------------------------------------------- */
+/* --------------------------------------------------------- */
+double * 
+cmaes_init(cmaes_t *t, /* "this" */
+                int dimension, 
+                double *inxstart,
+                double *inrgstddev, /* initial stds */
+                long int inseed,
+                int lambda, 
+                const char *input_parameter_filename) 
+{
+  cmaes_init_para(t, dimension, inxstart, inrgstddev, inseed, 
+                   lambda, input_parameter_filename);
+  return cmaes_init_final(t);
+}
 
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
@@ -2427,9 +2468,9 @@ szCat(const char *sz1, const char*sz2,
 void
 cmaes_readpara_init (cmaes_readpara_t *t,
                int dim, 
-               int inseed, 
                const double * inxstart, 
                const double * inrgsigma,
+               int inseed, 
                int lambda, 
                const char * filename)
 {
@@ -2556,9 +2597,8 @@ cmaes_readpara_init (cmaes_readpara_t *t,
       t->rgInitialStds[i] = (inrgsigma == NULL) ? 0.3 : inrgsigma[i];
   }
 
-  cmaes_readpara_SupplementDefaults(t);
-  if (!isNoneStr(filename))
-    cmaes_readpara_WriteToFile(t, "actparcmaes.par");
+  t->flgsupplemented = 0;
+
 } /* cmaes_readpara_init */
 
 /* --------------------------------------------------------- */
@@ -2600,7 +2640,7 @@ cmaes_readpara_ReadFromFile(cmaes_readpara_t *t, const char * filename)
   }
   t->filename = NULL; /* nothing read so far */
   fp = fopen( filename, "r"); 
-  if(fp == NULL) {
+  if (fp == NULL) {
     ERRORMESSAGE("cmaes_ReadFromFile(): could not open '", filename, "'",0);
     return;
   }
@@ -2707,11 +2747,19 @@ cmaes_readpara_WriteToFile(cmaes_readpara_t *t, const char *filenamedest)
 /* --------------------------------------------------------- */
 void 
 cmaes_readpara_SupplementDefaults(cmaes_readpara_t *t)
+/* Called (only) once to finally set parameters. The settings
+ * typically depend on the current parameter values itself,
+ * where 0 or -1 may indicate to set them to a certain default
+ * value. For this reason calling `SupplementDefaults` twice
+ * might lead to unexpected results. 
+*/
 {
   double t1, t2;
   int N = t->N; 
   clock_t cloc = clock();
   
+  if (t->flgsupplemented)
+    FATAL("readpara_SupplementDefaults() cannot be called twice.",0,0,0);
   if (t->seed < 1) {
     while ((int) (cloc - clock()) == 0)
       ; /* TODO: remove this for time critical applications!? */
@@ -2774,6 +2822,8 @@ cmaes_readpara_SupplementDefaults(cmaes_readpara_t *t)
   t->updateCmode.modulo *= t->facupdateCmode;
   if (t->updateCmode.maxtime < 0)
     t->updateCmode.maxtime = 0.20; /* maximal 20% of CPU-time */
+    
+  t->flgsupplemented = 1;
 
 } /* cmaes_readpara_SupplementDefaults() */
 
@@ -2961,7 +3011,8 @@ static char * new_string(const char *ins)
   static char s[170];
   unsigned i; 
   char *p; 
-  unsigned len = (unsigned) strlen(ins);
+  unsigned len = (unsigned) ((ins != NULL) ? strlen(ins) : 0);
+  
   if (len > 1000) {
     FATAL("new_string(): input string length was larger then 1000 ",
         "(possibly due to uninitialized char *filename)",0,0);
@@ -2981,8 +3032,12 @@ static void assign_string(char ** pdests, const char *ins)
 {
     if (*pdests)
         free(*pdests);
-    *pdests = new_string(ins);
+    if (ins == NULL)
+      *pdests = NULL;
+    else    
+      *pdests = new_string(ins);
 }
+
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 
