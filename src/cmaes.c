@@ -96,6 +96,7 @@
   14/04/29: removed bug, au = t->al[...], from the (new) boundary handling 
             code (thanks to Emmanuel Benazera for the hint) 
   14/06/16: test of un-initialized version number removed (thanks to Paul Zimmermann)
+  14/11/16: rename exported symbols so they begin with a cmaes_ prefix.
 
   Wish List
     o make signals_filename part of cmaes_t using assign_string()
