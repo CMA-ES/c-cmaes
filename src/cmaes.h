@@ -34,12 +34,12 @@ typedef struct
 } random_t;
 
 typedef struct 
-/* timings_t 
+/* cmaes_timings_t 
  * time measurement, used to time eigendecomposition 
  */
 {
   /* for outside use */
-  double totaltime; /* zeroed by calling re-calling timings_start */
+  double totaltime; /* zeroed by calling re-calling cmaes_timings_start */
   double totaltotaltime;
   double tictoctime; 
   double lasttictoctime;
@@ -54,7 +54,7 @@ typedef struct
 
   double lastdiff;
   double tictoczwischensumme;
-} timings_t;
+} cmaes_timings_t;
 
 typedef struct 
 /* cmaes_readpara_t
@@ -157,7 +157,7 @@ typedef struct
   short flgEigensysIsUptodate;
   short flgCheckEigen; /* control via cmaes_signals.par */
   double genOfEigensysUpdate; 
-  timings_t eigenTimings;
+  cmaes_timings_t eigenTimings;
  
   double dMaxSignifKond; 				     
   double dLastMinEWgroesserNull;

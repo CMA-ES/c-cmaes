@@ -119,7 +119,7 @@
 
     o writing data depending on timing in a smarter way, e.g. using 10% 
       of all time. First find out whether clock() is useful for measuring
-      disc writing time and then timings_t class can be utilized. 
+      disc writing time and then cmaes_timings_t class can be utilized. 
       For very large dimension the default of 1 seconds waiting might 
       be too small. 
 
@@ -149,11 +149,11 @@ double random_Gauss(random_t *); /* (0,1)-normally distributed */
 double random_Uniform(random_t *);
 long   random_Start(random_t *, long unsigned seed /* 0==1 */);
 
-void   timings_init(timings_t *timing);
-void   timings_start(timings_t *timing); /* fields totaltime and tictoctime */
-double timings_update(timings_t *timing);
-void   timings_tic(timings_t *timing);
-double timings_toc(timings_t *timing);
+void   cmaes_timings_init(cmaes_timings_t *timing);
+void   cmaes_timings_start(cmaes_timings_t *timing); /* fields totaltime and tictoctime */
+double cmaes_timings_update(cmaes_timings_t *timing);
+void   cmaes_timings_tic(cmaes_timings_t *timing);
+double cmaes_timings_toc(cmaes_timings_t *timing);
 
 void cmaes_readpara_init (cmaes_readpara_t *, int dim, int seed,  const double * xstart, 
                     const double * sigma, int lambda, const char * filename);
@@ -275,7 +275,7 @@ cmaes_init(cmaes_t *t, /* "this" */
   t->flgEigensysIsUptodate = 1;
   t->flgCheckEigen = 0; 
   t->genOfEigensysUpdate = 0;
-  timings_init(&t->eigenTimings);
+  cmaes_timings_init(&t->eigenTimings);
   t->flgIniphase = 0; /* do not use iniphase, hsig does the job now */
   t->flgresumedone = 0;
   t->flgStop = 0;
@@ -563,7 +563,7 @@ cmaes_SamplePopulation(cmaes_t *t)
         t->minEW = douSquare(rgdouMin(t->rgD, N)); 
         t->maxEW = douSquare(rgdouMax(t->rgD, N));
         t->flgEigensysIsUptodate = 1;
-        timings_start(&t->eigenTimings);
+        cmaes_timings_start(&t->eigenTimings);
       }
   }
 
@@ -1058,7 +1058,7 @@ void cmaes_WriteToFilePtr(cmaes_t *t, const char *key, FILE *fp)
       /* (processor) time (used) since begin of execution */ 
       if (strncmp(key, "clock", 4) == 0)
         {
-          timings_update(&t->eigenTimings);
+          cmaes_timings_update(&t->eigenTimings);
           fprintf(fp, "%.1f %.1f",  t->eigenTimings.totaltotaltime, 
                   t->eigenTimings.tictoctime);
           while (*key != '+' && *key != '\0' && key < keyend)
@@ -1821,7 +1821,7 @@ cmaes_UpdateEigensystem(cmaes_t *t, int flgforce)
 {
   int i, N = t->sp.N;
 
-  timings_update(&t->eigenTimings);
+  cmaes_timings_update(&t->eigenTimings);
 
   if(flgforce == 0) {
     if (t->flgEigensysIsUptodate == 1)
@@ -1839,11 +1839,11 @@ cmaes_UpdateEigensystem(cmaes_t *t, int flgforce)
         && t->eigenTimings.tictoctime > 0.0002)
       return; 
   }
-  timings_tic(&t->eigenTimings);
+  cmaes_timings_tic(&t->eigenTimings);
 
   Eigen( N, t->C, t->rgD, t->B, t->rgdTmp);
       
-  timings_toc(&t->eigenTimings);
+  cmaes_timings_toc(&t->eigenTimings);
 
   /* find largest and smallest eigenvalue, they are supposed to be sorted anyway */
   t->minEW = rgdouMin(t->rgD, N);
@@ -2228,22 +2228,22 @@ WriteMaxErrorInfo(cmaes_t *t)
 #endif
 
 /* --------------------------------------------------------- */
-/* --------------- Functions: timings_t -------------------- */
+/* --------------- Functions: cmaes_timings_t -------------------- */
 /* --------------------------------------------------------- */
-/* timings_t measures overall time and times between calls
+/* cmaes_timings_t measures overall time and times between calls
  * of tic and toc. For small time spans (up to 1000 seconds)
  * CPU time via clock() is used. For large time spans the
  * fall-back to elapsed time from time() is used.
- * timings_update() must be called often enough to prevent
+ * cmaes_timings_update() must be called often enough to prevent
  * the fallback. */
 /* --------------------------------------------------------- */
 void 
-timings_init(timings_t *t) {
+cmaes_timings_init(cmaes_timings_t *t) {
   t->totaltotaltime = 0; 
-  timings_start(t);
+  cmaes_timings_start(t);
 }
 void 
-timings_start(timings_t *t) {
+cmaes_timings_start(cmaes_timings_t *t) {
   t->totaltime = 0;
   t->tictoctime = 0;
   t->lasttictoctime = 0;
@@ -2256,8 +2256,8 @@ timings_start(timings_t *t) {
 }
 
 double 
-timings_update(timings_t *t) {
-/* returns time between last call of timings_*() and now, 
+cmaes_timings_update(cmaes_timings_t *t) {
+/* returns time between last call of cmaes_timings_*() and now, 
  *    should better return totaltime or tictoctime? 
  */
   double diffc, difft;
@@ -2265,7 +2265,7 @@ timings_update(timings_t *t) {
   time_t lt = t->lasttime;   /* measure time in s */
 
   if (t->isstarted != 1)
-    FATAL("timings_started() must be called before using timings... functions",0,0,0);
+    FATAL("cmaes_timings_started() must be called before using timings... functions",0,0,0);
 
   t->lastclock = clock(); /* measures at most 2147 seconds, where 1s = 1e6 CLOCKS_PER_SEC */
   t->lasttime = time(NULL);
@@ -2293,22 +2293,22 @@ timings_update(timings_t *t) {
 }
 
 void
-timings_tic(timings_t *t) {
+cmaes_timings_tic(cmaes_timings_t *t) {
   if (t->istic) { /* message not necessary ? */
-    ERRORMESSAGE("Warning: timings_tic called twice without toc",0,0,0);
+    ERRORMESSAGE("Warning: cmaes_timings_tic called twice without toc",0,0,0);
     return; 
   }
-  timings_update(t); 
+  cmaes_timings_update(t); 
   t->istic = 1; 
 }
 
 double
-timings_toc(timings_t *t) {
+cmaes_timings_toc(cmaes_timings_t *t) {
   if (!t->istic) {
-    ERRORMESSAGE("Warning: timings_toc called without tic",0,0,0);
+    ERRORMESSAGE("Warning: cmaes_timings_toc called without tic",0,0,0);
     return -1; 
   }
-  timings_update(t);
+  cmaes_timings_update(t);
   t->lasttictoctime = t->tictoczwischensumme;
   t->tictoczwischensumme = 0;
   t->istic = 0;
