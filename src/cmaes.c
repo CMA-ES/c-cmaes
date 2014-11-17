@@ -258,7 +258,7 @@ cmaes_init_para(cmaes_t *t, /* "this" */
                 const char *input_parameter_filename) 
 {
   t->version = c_cmaes_version;
-  readpara_init(&t->sp, dimension, inxstart, inrgstddev, inseed, 
+  cmaes_readpara_init(&t->sp, dimension, inxstart, inrgstddev, inseed, 
                    lambda, input_parameter_filename);
 }
 
