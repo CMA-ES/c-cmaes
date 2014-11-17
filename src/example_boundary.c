@@ -28,7 +28,7 @@ int is_feasible(double const *x, unsigned long N) {
 /* the optimization loop */
 int main(int argn, char **args) {
   cmaes_t evo; /* an CMA-ES type struct or "object" */
-  boundary_transformation_t boundaries;
+  cmaes_boundary_transformation_t boundaries;
   double *arFunvals, *x_in_bounds, *const*pop;
   double lowerBounds[] = {1.0, DBL_MAX / -1e2}; /* last number is recycled for all remaining coordinates */
   double upperBounds[] = {3, 2e22};
@@ -37,7 +37,7 @@ int main(int argn, char **args) {
   int i; 
 
   /* initialize boundaries, be sure that initialSigma is smaller than upper minus lower bound */
-  boundary_transformation_init(&boundaries, lowerBounds, upperBounds, nb_bounds);
+  cmaes_boundary_transformation_init(&boundaries, lowerBounds, upperBounds, nb_bounds);
   /* Initialize everything into the struct evo, 0 means default */
   arFunvals = cmaes_init(&evo, 0, NULL, NULL, 0, 0, "cmaes_initials.par");
   dimension = (unsigned long)cmaes_Get(&evo, "dimension");
@@ -85,7 +85,7 @@ int main(int argn, char **args) {
 
   /* and finally release memory */
   cmaes_exit(&evo); /* release memory */
-  boundary_transformation_exit(&boundaries); /* release memory */
+  cmaes_boundary_transformation_exit(&boundaries); /* release memory */
   free(x_in_bounds);
 
   return 0;
