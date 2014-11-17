@@ -2230,7 +2230,7 @@ WriteMaxErrorInfo(cmaes_t *t)
 #endif
 
 /* --------------------------------------------------------- */
-/* --------------- Functions: cmaes_timings_t -------------------- */
+/* --------------- Functions: cmaes_timings_t -------------- */
 /* --------------------------------------------------------- */
 /* cmaes_timings_t measures overall time and times between calls
  * of tic and toc. For small time spans (up to 1000 seconds)
@@ -2318,7 +2318,7 @@ cmaes_timings_toc(cmaes_timings_t *t) {
 }
 
 /* --------------------------------------------------------- */
-/* ---------------- Functions: cmaes_random_t -------------------- */
+/* ---------------- Functions: cmaes_random_t -------------- */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* X_1 exakt :          0.79788456)  */
@@ -2422,7 +2422,7 @@ szCat(const char *sz1, const char*sz2,
       const char *sz3, const char *sz4);
 
 /* --------------------------------------------------------- */
-/* -------------- Functions: cmaes_readpara_t -------------------- */
+/* -------------- Functions: cmaes_readpara_t -------------- */
 /* --------------------------------------------------------- */
 void
 cmaes_readpara_init (cmaes_readpara_t *t,
