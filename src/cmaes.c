@@ -155,8 +155,9 @@ double cmaes_timings_update(cmaes_timings_t *timing);
 void   cmaes_timings_tic(cmaes_timings_t *timing);
 double cmaes_timings_toc(cmaes_timings_t *timing);
 
-void cmaes_readpara_init (cmaes_readpara_t *, int dim, int seed,  const double * xstart, 
-                    const double * sigma, int lambda, const char * filename);
+void cmaes_readpara_init (cmaes_readpara_t *, int dim, int seed,
+                          const double * xstart, const double * sigma,
+                          int lambda, const char * filename);
 void cmaes_readpara_exit(cmaes_readpara_t *);
 void cmaes_readpara_ReadFromFile(cmaes_readpara_t *, const char *szFileName);
 void cmaes_readpara_SupplementDefaults(cmaes_readpara_t *);
