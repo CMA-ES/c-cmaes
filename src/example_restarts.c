@@ -128,7 +128,7 @@ double * optimize(double(*pFun)(double const *), int nrestarts, double incpopsiz
 	for (irun = 0; irun < nrestarts+1; ++irun) /* restarts */
 	{
 		/* Parameters can be set in three ways. Here as input parameter
-		 * to cmaes_init, as value read from cmaes_initials.par in readpara_init
+		 * to cmaes_init, as value read from cmaes_initials.par in cmaes_readpara_init
 		 * during initialization, and as value read from cmaes_signals.par by
 		 * calling cmaes_ReadSignals explicitely.
 		 */
