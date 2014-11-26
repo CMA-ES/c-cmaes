@@ -100,6 +100,7 @@
             such that parameters can be set also comparatively safely within the
             code, namely after calling cmaes_init_para(). The order of parameters
             of readpara_init() has changed to be the same as for cmaes_init(). 
+  14/11/26: renamed exported symbols so they begin with a cmaes_prefix.
   
   Wish List
     o make signals_filename part of cmaes_t using assign_string()
@@ -159,14 +160,14 @@ double timings_update(timings_t *timing);
 void   timings_tic(timings_t *timing);
 double timings_toc(timings_t *timing);
 
-void readpara_init (readpara_t *, int dim, const double * xstart, 
+void cmaes_readpara_init (cmaes_readpara_t *, int dim, const double * xstart, 
                     const double * sigma, int seed, int lambda,
                     const char * filename);
-void readpara_exit(readpara_t *);
-void readpara_ReadFromFile(readpara_t *, const char *szFileName);
-void readpara_SupplementDefaults(readpara_t *);
-void readpara_SetWeights(readpara_t *, const char * mode);
-void readpara_WriteToFile(readpara_t *, const char *filenamedest);
+void cmaes_readpara_exit(cmaes_readpara_t *);
+void cmaes_readpara_ReadFromFile(cmaes_readpara_t *, const char *szFileName);
+void cmaes_readpara_SupplementDefaults(cmaes_readpara_t *);
+void cmaes_readpara_SetWeights(cmaes_readpara_t *, const char * mode);
+void cmaes_readpara_WriteToFile(cmaes_readpara_t *, const char *filenamedest);
 
 const double * cmaes_Optimize( cmaes_t *, double(*pFun)(double const *, int dim), 
                                 long iterations);
@@ -257,7 +258,7 @@ cmaes_init_para(cmaes_t *t, /* "this" */
                 const char *input_parameter_filename) 
 {
   t->version = c_cmaes_version;
-  readpara_init(&t->sp, dimension, inxstart, inrgstddev, inseed, 
+  cmaes_readpara_init(&t->sp, dimension, inxstart, inrgstddev, inseed, 
                    lambda, input_parameter_filename);
 }
 
@@ -282,9 +283,9 @@ cmaes_init_final(cmaes_t *t /* "this" */)
   /* assign_string(&t->signalsFilename, "cmaes_signals.par"); */
 
   if (!t->sp.flgsupplemented) {
-    readpara_SupplementDefaults(&t->sp);
+    cmaes_readpara_SupplementDefaults(&t->sp);
     if (!isNoneStr(t->sp.filename))
-      readpara_WriteToFile(&t->sp, "actparcmaes.par");
+      cmaes_readpara_WriteToFile(&t->sp, "actparcmaes.par");
   }
      
   t->sp.seed = random_init( &t->rand, (long unsigned int) t->sp.seed);
@@ -555,7 +556,7 @@ cmaes_exit(cmaes_t *t)
   free( --t->rgFuncValue);
   free( --t->arFuncValueHist);
   random_exit (&t->rand);
-  readpara_exit (&t->sp); 
+  cmaes_readpara_exit (&t->sp); 
 } /* cmaes_exit() */
 
 
@@ -2462,10 +2463,10 @@ szCat(const char *sz1, const char*sz2,
       const char *sz3, const char *sz4);
 
 /* --------------------------------------------------------- */
-/* -------------- Functions: readpara_t -------------------- */
+/* -------------- Functions: cmaes_readpara_t -------------- */
 /* --------------------------------------------------------- */
 void
-readpara_init (readpara_t *t,
+cmaes_readpara_init (cmaes_readpara_t *t,
                int dim, 
                const double * inxstart, 
                const double * inrgsigma,
@@ -2474,7 +2475,7 @@ readpara_init (readpara_t *t,
                const char * filename)
 {
   int i, N;
-  /* TODO: make sure readpara_init has not been called already */
+  /* TODO: make sure cmaes_readpara_init has not been called already */
   t->filename = NULL; /* set after successful Read */
   t->rgsformat = (const char **) new_void(55, sizeof(char *));
   t->rgpadr = (void **) new_void(55, sizeof(void *)); 
@@ -2553,16 +2554,16 @@ readpara_init (readpara_t *t,
   t->facupdateCmode = 1;
   strcpy(t->resumefile, "_no_");
 
-  /* filename == NULL invokes default in readpara_Read... */
+  /* filename == NULL invokes default in cmaes_readpara_Read... */
   if (!isNoneStr(filename) && (!filename || strcmp(filename, "writeonly") != 0))
-    readpara_ReadFromFile(t, filename);
+    cmaes_readpara_ReadFromFile(t, filename);
 
   if (t->N <= 0)
     t->N = dim;
 
   N = t->N; 
   if (N == 0)
-    FATAL("readpara_readpara_t(): problem dimension N undefined.\n",
+    FATAL("cmaes_readpara_cmaes_readpara_t(): problem dimension N undefined.\n",
           "  (no default value available).",0,0); 
   if (t->xstart == NULL && inxstart == NULL && t->typicalX == NULL) {
     ERRORMESSAGE("Warning: initialX undefined. typicalX = 0.5...0.5 used.","","","");
@@ -2598,11 +2599,11 @@ readpara_init (readpara_t *t,
 
   t->flgsupplemented = 0;
 
-} /* readpara_init */
+} /* cmaes_readpara_init */
 
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
-void readpara_exit(readpara_t *t)
+void cmaes_readpara_exit(cmaes_readpara_t *t)
 {
   if (t->filename != NULL)
     free( t->filename);
@@ -2627,7 +2628,7 @@ void readpara_exit(readpara_t *t)
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 void 
-readpara_ReadFromFile(readpara_t *t, const char * filename)
+cmaes_readpara_ReadFromFile(cmaes_readpara_t *t, const char * filename)
 {
   char s[1000];
   const char *ss = "cmaes_initials.par";
@@ -2658,7 +2659,7 @@ readpara_ReadFromFile(readpara_t *t, const char * filename)
         }
     } /* for */
   if (t->N <= 0)
-    FATAL("readpara_ReadFromFile(): No valid dimension N",0,0,0); 
+    FATAL("cmaes_readpara_ReadFromFile(): No valid dimension N",0,0,0); 
   for (ipara=0; ipara < t->n2para; ++ipara)
     {
       rewind(fp);
@@ -2673,7 +2674,7 @@ readpara_ReadFromFile(readpara_t *t, const char * filename)
                 if (fscanf(fp, " %lf", &(*t->rgp2adr[ipara])[i]) != 1)
                   break;
               if (i<size && i < t->N) {
-                ERRORMESSAGE("readpara_ReadFromFile ", filename, ": ",0); 
+                ERRORMESSAGE("cmaes_readpara_ReadFromFile ", filename, ": ",0); 
                 FATAL( "'", t->rgskeyar[ipara], 
                        "' not enough values found.\n", 
                        "   Remove all comments between numbers.");
@@ -2687,12 +2688,12 @@ readpara_ReadFromFile(readpara_t *t, const char * filename)
   fclose(fp);
   assign_string(&(t->filename), filename); /* t->filename must be freed */
   return;
-} /* readpara_ReadFromFile() */
+} /* cmaes_readpara_ReadFromFile() */
 
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 void
-readpara_WriteToFile(readpara_t *t, const char *filenamedest)
+cmaes_readpara_WriteToFile(cmaes_readpara_t *t, const char *filenamedest)
 {
   int ipara, i; 
   size_t len;
@@ -2740,12 +2741,12 @@ readpara_WriteToFile(readpara_t *t, const char *filenamedest)
   } /* for */
   fprintf(fp, "\n");
   fclose(fp); 
-} /* readpara_WriteToFile() */
+} /* cmaes_readpara_WriteToFile() */
 
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 void 
-readpara_SupplementDefaults(readpara_t *t)
+cmaes_readpara_SupplementDefaults(cmaes_readpara_t *t)
 /* Called (only) once to finally set parameters. The settings
  * typically depend on the current parameter values itself,
  * where 0 or -1 may indicate to set them to a certain default
@@ -2758,7 +2759,7 @@ readpara_SupplementDefaults(readpara_t *t)
   clock_t cloc = clock();
   
   if (t->flgsupplemented)
-    FATAL("readpara_SupplementDefaults() cannot be called twice.",0,0,0);
+    FATAL("cmaes_readpara_SupplementDefaults() cannot be called twice.",0,0,0);
   if (t->seed < 1) {
     while ((int) (cloc - clock()) == 0)
       ; /* TODO: remove this for time critical applications!? */
@@ -2772,10 +2773,10 @@ readpara_SupplementDefaults(readpara_t *t)
     t->lambda = 4+(int)(3*log((double)N));
   if (t->mu == -1) {
     t->mu = t->lambda/2; 
-    readpara_SetWeights(t, t->weigkey);
+    cmaes_readpara_SetWeights(t, t->weigkey);
   }
   if (t->weights == NULL)
-    readpara_SetWeights(t, t->weigkey);
+    cmaes_readpara_SetWeights(t, t->weigkey);
 
   if (t->cs > 0) /* factor was read */
     t->cs *= (t->mueff + 2.) / (N + t->mueff + 3.);
@@ -2824,13 +2825,13 @@ readpara_SupplementDefaults(readpara_t *t)
     
   t->flgsupplemented = 1;
 
-} /* readpara_SupplementDefaults() */
+} /* cmaes_readpara_SupplementDefaults() */
 
    
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 void 
-readpara_SetWeights(readpara_t *t, const char * mode)
+cmaes_readpara_SetWeights(cmaes_readpara_t *t, const char * mode)
 {
   double s1, s2;
   int i;
@@ -2862,9 +2863,9 @@ readpara_SetWeights(readpara_t *t, const char * mode)
 
   if(t->mu < 1 || t->mu > t->lambda || 
      (t->mu==t->lambda && t->weights[0]==t->weights[t->mu-1]))
-    FATAL("readpara_SetWeights(): invalid setting of mu or lambda",0,0,0);
+    FATAL("cmaes_readpara_SetWeights(): invalid setting of mu or lambda",0,0,0);
 
-} /* readpara_SetWeights() */
+} /* cmaes_readpara_SetWeights() */
 
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */

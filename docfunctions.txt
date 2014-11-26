@@ -21,8 +21,8 @@ cmaes_init_final(cmaes_t * evo_ptr);
                  in cmaes_init(evo_ptr, ...) below.
   
     Details:
-      This initializer allows to set values in readpara_t evo_ptr->sp "manually"
-      in the code instead of via the parameter file only. See readpara_t type.
+      This initializer allows to set values in cmaes_readpara_t evo_ptr->sp "manually"
+      in the code instead of via the parameter file only. See cmaes_readpara_t type.
       
     Example:
       cmaes_t evo;

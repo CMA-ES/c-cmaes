@@ -57,7 +57,7 @@ typedef struct
 } timings_t;
 
 typedef struct 
-/* readpara_t
+/* cmaes_readpara_t
  * collects all parameters, in particular those that are read from 
  * a file before to start. This should split in future? 
  */
@@ -107,7 +107,7 @@ typedef struct
   double ***rgp2adr;
   int n1para, n1outpara;
   int n2para;
-} readpara_t;
+} cmaes_readpara_t;
 
 typedef struct 
 /* cmaes_t 
@@ -116,7 +116,7 @@ typedef struct
 {
   const char *version;
   /* char *signalsFilename; */
-  readpara_t sp;
+  cmaes_readpara_t sp;
   random_t rand; /* random number generator */
 
   double sigma;  /* step size */
