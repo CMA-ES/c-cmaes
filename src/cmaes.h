@@ -18,7 +18,7 @@
 #include <time.h>
 
 typedef struct 
-/* random_t 
+/* cmaes_random_t 
  * sets up a pseudo random number generator instance 
  */
 {
@@ -31,7 +31,7 @@ typedef struct
   /* Variables for Gauss() */
   short flgstored;
   double hold;
-} random_t;
+} cmaes_random_t;
 
 typedef struct 
 /* cmaes_timings_t 
@@ -117,7 +117,7 @@ typedef struct
   const char *version;
   /* char *signalsFilename; */
   cmaes_readpara_t sp;
-  random_t rand; /* random number generator */
+  cmaes_random_t rand; /* random number generator */
 
   double sigma;  /* step size */
 
