@@ -3065,8 +3065,8 @@ FATAL(char const *s1, char const *s2, char const *s3,
 }
 
 /* ========================================================= */
-void ERRORMESSAGE( char const *s1, char const *s2, 
-                   char const *s3, char const *s4)
+static void ERRORMESSAGE( char const *s1, char const *s2, 
+                          char const *s3, char const *s4)
 {
 #if 1
   /*  static char szBuf[700];  desirable but needs additional input argument 
@@ -3089,8 +3089,8 @@ void ERRORMESSAGE( char const *s1, char const *s2,
 }
 
 /* ========================================================= */
-char *szCat(const char *sz1, const char*sz2, 
-            const char *sz3, const char *sz4)
+static char *szCat(const char *sz1, const char*sz2, 
+                   const char *sz3, const char *sz4)
 {
   static char szBuf[700];
 
