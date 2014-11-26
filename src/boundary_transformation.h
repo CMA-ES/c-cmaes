@@ -62,7 +62,7 @@ void cmaes_boundary_transformation(cmaes_boundary_transformation_t *,
 void cmaes_boundary_transformation_inverse(cmaes_boundary_transformation_t *t,
 		double const *y, double *x, unsigned long len); /* new value into x */
 
-/* used by function boundary_transformation. After applying the shift,
+/* used by function cmaes_boundary_transformation. After applying the shift,
  *   cmaes_boundary_transformation_shift_into_feasible_preimage(b,x,x,l)
  * the two consecutive calls
  *   cmaes_boundary_transformation(b,x,y,l) ; cmaes_boundary_transformation_inverse(b,y,x,l) ;
