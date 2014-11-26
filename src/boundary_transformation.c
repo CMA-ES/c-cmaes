@@ -6,12 +6,12 @@
 #include "boundary_transformation.h"
 
 static int do_assertions = 1;
-static unsigned long _index(boundary_transformation_t *t, unsigned long i);
+static unsigned long _index(cmaes_boundary_transformation_t *t, unsigned long i);
 static void _FatalError(const char *s);
 static double default_lower[1];
 static double default_upper[1];
 
-void boundary_transformation_init(boundary_transformation_t *t,
+void cmaes_boundary_transformation_init(cmaes_boundary_transformation_t *t,
         double const *lower_bounds, double const *upper_bounds, unsigned long len_of_bounds)
 {
     unsigned i;
@@ -51,19 +51,19 @@ void boundary_transformation_init(boundary_transformation_t *t,
         t->au[i] = fmin((ub[i] - lb[i]) / 2., (1. + fabs(ub[i])) / 20.);
     }
 }
-void boundary_transformation_exit(boundary_transformation_t *t)
+void cmaes_boundary_transformation_exit(cmaes_boundary_transformation_t *t)
 {
     if(t->al)
         free(t->al);
     if(t->au)
         free(t->au);
 }
-void boundary_transformation(boundary_transformation_t *t,
+void cmaes_boundary_transformation(cmaes_boundary_transformation_t *t,
         double const *x, double *y, unsigned long len)
 {
     double lb, ub, al, au;
     unsigned long i;
-    boundary_transformation_shift_into_feasible_preimage(t, x, y, len);
+    cmaes_boundary_transformation_shift_into_feasible_preimage(t, x, y, len);
     for(i = 0; i < len; ++i) {
         lb = t->lower_bounds[_index(t, i)];
         ub = t->upper_bounds[_index(t, i)];
@@ -75,8 +75,8 @@ void boundary_transformation(boundary_transformation_t *t,
             y[i] = ub - (y[i] - (ub + au)) * (y[i] - (ub + au)) / 4. / au;
     }
 }
-void boundary_transformation_shift_into_feasible_preimage(
-            boundary_transformation_t *t, double const *x, double *y, unsigned long len)
+void cmaes_boundary_transformation_shift_into_feasible_preimage(
+            cmaes_boundary_transformation_t *t, double const *x, double *y, unsigned long len)
 {
     double lb, ub, al, au, r, xlow, xup;
     unsigned long i;
@@ -105,13 +105,13 @@ void boundary_transformation_shift_into_feasible_preimage(
             y[i] -= 2 * (y[i] - ub - au);
 
         if ((y[i] < lb - al - 1e-15) || (y[i] > ub + au + 1e-15)) {
-            printf("BUG in boundary_transformation_shift_into_feasible_preimage: lb=%f, ub=%f, al=%f au=%f, y=%f\n",
+            printf("BUG in cmaes_boundary_transformation_shift_into_feasible_preimage: lb=%f, ub=%f, al=%f au=%f, y=%f\n",
                     lb, ub, al, au, y[i]);
             _FatalError("BUG");
         }
     }
 }
-void boundary_transformation_inverse(boundary_transformation_t *t,
+void cmaes_boundary_transformation_inverse(cmaes_boundary_transformation_t *t,
         double const *x, double *y, unsigned long len)
 {
     double lb, ub, al, au;
@@ -132,7 +132,7 @@ void boundary_transformation_inverse(boundary_transformation_t *t,
         double *z = calloc(len, sizeof(double));
         for (i = 0; i < len; ++i)
             z[i] = y[i];
-        boundary_transformation(t, z, y, len);
+        cmaes_boundary_transformation(t, z, y, len);
         for (i = 0; i < len; ++i)
             if (fabs(y[i] - x[i]) > 1e-14)
                 printf("  difference for index %ld should be zero, is %f ", i, y[i] - x[i]);
@@ -142,7 +142,7 @@ void boundary_transformation_inverse(boundary_transformation_t *t,
     }
 }
 /*
-static void _manage_len(boundary_transformation_t *t, unsigned int len)
+static void _manage_len(cmaes_boundary_transformation_t *t, unsigned int len)
 {
     if (t->len_of_return_value < len) {
         if (t->return_value)
@@ -154,12 +154,12 @@ static void _manage_len(boundary_transformation_t *t, unsigned int len)
         _FatalError("could not allocate memory");
 }
 */
-static unsigned long _index(boundary_transformation_t *t, unsigned long i)
+static unsigned long _index(cmaes_boundary_transformation_t *t, unsigned long i)
 {
     return i < t->len_of_bounds ? i : t->len_of_bounds - 1;
 }
 static void _FatalError(const char *s)
 {
-    printf("Fatal error in boundary_transformation: %s\n", s);
+    printf("Fatal error in cmaes_boundary_transformation: %s\n", s);
     exit(1);
 }
