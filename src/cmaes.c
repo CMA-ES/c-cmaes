@@ -2584,7 +2584,7 @@ cmaes_readpara_init (cmaes_readpara_t *t,
 
   N = t->N; 
   if (N == 0)
-    FATAL("cmaes_readpara_cmaes_readpara_t(): problem dimension N undefined.\n",
+    FATAL("cmaes_readpara_t(): problem dimension N undefined.\n",
           "  (no default value available).",0,0); 
   if (t->xstart == NULL && inxstart == NULL && t->typicalX == NULL) {
     ERRORMESSAGE("Error: initialX undefined. typicalX = 0.5...0.5 used.","","","");
