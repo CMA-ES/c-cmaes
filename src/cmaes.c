@@ -281,12 +281,12 @@ cmaes_init_final(cmaes_t *t /* "this" */)
   if (t->version == NULL) {
         ERRORMESSAGE("cmaes_init_final called (probably) without calling cmaes_init_para first",
                      ", which will likely lead to unexpected results",0,0);
-        printf("Warning: cmaes_init_final called (probably) without calling cmaes_init_para first\n");
+        printf("Error: cmaes_init_final called (probably) without calling cmaes_init_para first\n");
   }
   if (strcmp(c_cmaes_version, t->version) != 0) {
         ERRORMESSAGE("cmaes_init_final called twice, which will lead to a memory leak",
                      "; use cmaes_exit() first",0,0);
-        printf("Warning: cmaes_init_final called twice, which will lead to a memory leak; use cmaes_exit first\n");
+        printf("Error: cmaes_init_final called twice, which will lead to a memory leak; use cmaes_exit first\n");
   }
   /* assign_string(&t->signalsFilename, "cmaes_signals.par"); */
 
@@ -2582,13 +2582,13 @@ readpara_init (readpara_t *t,
     FATAL("readpara_readpara_t(): problem dimension N undefined.\n",
           "  (no default value available).",0,0); 
   if (t->xstart == NULL && inxstart == NULL && t->typicalX == NULL) {
-    ERRORMESSAGE("Warning: initialX undefined. typicalX = 0.5...0.5 used.","","","");
-    printf("\nWarning: initialX undefined. typicalX = 0.5...0.5 used.\n");
+    ERRORMESSAGE("Error: initialX undefined. typicalX = 0.5...0.5 used.","","","");
+    printf("\nError: initialX undefined. typicalX = 0.5...0.5 used.\n");
   }
   if (t->rgInitialStds == NULL && inrgsigma == NULL) {
     /* FATAL("initialStandardDeviations undefined","","",""); */
-    ERRORMESSAGE("Warning: initialStandardDeviations undefined. 0.3...0.3 used.","","","");
-    printf("\nWarning: initialStandardDeviations. 0.3...0.3 used.\n");
+    ERRORMESSAGE("Error: initialStandardDeviations undefined. 0.3...0.3 used.","","","");
+    printf("\nError: initialStandardDeviations undefined. 0.3...0.3 used.\n");
   }
 
   if (t->xstart == NULL) {
