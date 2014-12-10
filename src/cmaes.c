@@ -403,6 +403,11 @@ cmaes_init(cmaes_t *t, /* "this" */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 
+#ifdef __GNUC__
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wunused-result"
+#endif
+
 void 
 cmaes_resume_distribution(cmaes_t *t, char *filename)
 {
@@ -522,6 +527,9 @@ cmaes_resume_distribution(cmaes_t *t, char *filename)
   cmaes_UpdateEigensystem(t, 1);
   
 } /* cmaes_resume_distribution() */
+#ifdef __GNUC__
+    #pragma GCC diagnostic pop
+#endif
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 
