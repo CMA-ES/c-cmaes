@@ -292,7 +292,7 @@ cmaes_init_final(cmaes_t *t /* "this" */)
 
   if (!t->sp.flgsupplemented) {
     readpara_SupplementDefaults(&t->sp);
-    if (!isNoneStr(t->sp.filename))
+    if (!isNoneStr(t->sp.filename)) /* TODO: should this be done in readpara_SupplementDefaults? */
       readpara_WriteToFile(&t->sp, "actparcmaes.par");
   }
      
