@@ -33,9 +33,9 @@ double * optimize(double(*pFun)(double const *), int number_of_restarts,
 		double increment_factor_for_population_size,
 		char *input_parameter_filename);
 
-extern void   random_init( random_t *, long unsigned seed /*=0=clock*/);
-extern void   random_exit( random_t *);
-extern double random_Gauss( random_t *); /* (0,1)-normally distributed */
+extern void   cmaes_random_init( cmaes_random_t *, long unsigned seed /*=0=clock*/);
+extern void   cmaes_random_exit( cmaes_random_t *);
+extern double cmaes_random_Gauss( cmaes_random_t *); /* (0,1)-normally distributed */
 
 /*___________________________________________________________________________
 //___________________________________________________________________________
@@ -128,7 +128,7 @@ double * optimize(double(*pFun)(double const *), int nrestarts, double incpopsiz
 	for (irun = 0; irun < nrestarts+1; ++irun) /* restarts */
 	{
 		/* Parameters can be set in three ways. Here as input parameter
-		 * to cmaes_init, as value read from cmaes_initials.par in readpara_init
+		 * to cmaes_init, as value read from cmaes_initials.par in cmaes_readpara_init
 		 * during initialization, and as value read from cmaes_signals.par by
 		 * calling cmaes_ReadSignals explicitely.
 		 */
@@ -312,7 +312,7 @@ double **OrthogonalBasis(int DIM) {
 	static double **b;
 	double sp;
 	int i,j,k;
-	random_t R;
+	cmaes_random_t R;
 
 	if(b_dim != 0) { /* Initialization was done */
 
@@ -325,7 +325,7 @@ double **OrthogonalBasis(int DIM) {
 	}
 
 	/* Otherwise initialize basis b */
-	random_init(&R, 2); /* TODO: choose not always the same basis? */
+	cmaes_random_init(&R, 2); /* TODO: choose not always the same basis? */
 
 	/* allocate b */
 	b = (double **) calloc((unsigned) DIM, sizeof(double*));
@@ -346,7 +346,7 @@ double **OrthogonalBasis(int DIM) {
 	for (i = 0; i < DIM; ++i) {
 		/* sample components gaussian */
 		for (j = 0; j < DIM; ++j)
-			b[i][j] = random_Gauss(&R);
+			b[i][j] = cmaes_random_Gauss(&R);
 		/* substract projection of previous vectors */
 		for (j = i-1; j >= 0; --j) {
 			for (sp = 0., k = 0; k < DIM; ++k)
@@ -360,7 +360,7 @@ double **OrthogonalBasis(int DIM) {
 		for (k = 0; k < DIM; ++k)
 			b[i][k] /= sqrt(sp);
 	}
-	random_exit(&R);
+	cmaes_random_exit(&R);
 
 	return b;
 
