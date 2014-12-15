@@ -479,6 +479,8 @@ cmaes_resume_distribution(cmaes_t *t, char *filename)
   t->flgresumedone = 1;
   cmaes_UpdateEigensystem(t, 1);
   
+  fclose(fp);
+  
 } /* cmaes_resume_distribution() */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
