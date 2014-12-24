@@ -474,12 +474,12 @@ cmaes_resume_distribution(cmaes_t *t, char *filename)
   if (res != (t->sp.N*t->sp.N+t->sp.N)/2)
     FATAL("cmaes_resume_distribution(): C: dimensions differ",0,0,0); 
    
+  fclose(fp);
+  
   t->flgIniphase = 0;
   t->flgEigensysIsUptodate = 0;
   t->flgresumedone = 1;
   cmaes_UpdateEigensystem(t, 1);
-  
-  fclose(fp);
   
 } /* cmaes_resume_distribution() */
 /* --------------------------------------------------------- */
