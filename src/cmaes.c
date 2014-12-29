@@ -763,10 +763,10 @@ cmaes_Optimize( cmaes_t *evo, double(*pFun)(double const *, int dim), long itera
     double *const*pop; /* sampled population */
     const char *stop;
     int i;
-    long startiter = (long)evo->gen; 
+    double startiter = evo->gen; 
     
     while(!(stop=cmaes_TestForTermination(evo)) && 
-        ((long)evo->gen < startiter + iterations || !iterations))
+        (evo->gen < startiter + iterations || !iterations))
     { 
         /* Generate population of new candidate solutions */
         pop = cmaes_SamplePopulation(evo); /* do not change content of pop */
