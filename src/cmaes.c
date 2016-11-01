@@ -2406,7 +2406,7 @@ cmaes_random_init( cmaes_random_t *t, long unsigned inseed)
   if (inseed < 1) {
     while ((long) (cloc - clock()) == 0)
       ; /* TODO: remove this for time critical applications? */
-    inseed = (long unsigned)abs((long)(100*time(NULL)+clock()));
+    inseed = (long unsigned)labs((long)(100*time(NULL)+clock()));
   }
   return cmaes_random_Start(t, inseed);
 }
@@ -2786,7 +2786,7 @@ cmaes_readpara_SupplementDefaults(cmaes_readpara_t *t)
   if (t->seed < 1) {
     while ((int) (cloc - clock()) == 0)
       ; /* TODO: remove this for time critical applications!? */
-    t->seed = (unsigned int)abs((long)(100*time(NULL)+clock()));
+    t->seed = (unsigned int)labs((long)(100*time(NULL)+clock()));
   }
 
   if (t->stStopFitness.flg == -1)
