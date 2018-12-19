@@ -23,6 +23,9 @@ set(CCMAES_SRC "${CCMAES_SRC_DIR}/cmaes.c" "${CCMAES_SRC_DIR}/boundary_transform
 # Library to be compiled
 add_library(ccmaes SHARED ${CCMAES_SRC})
 
+# Link the library with the standard C lib for maths
+target_link_libraries(ccmaes m)
+
 # Examples
 if(COMPILE_EXAMPLES)
     # Examples executables will be put here
@@ -33,7 +36,7 @@ if(COMPILE_EXAMPLES)
     add_executable(evoshort ${CCMAES_SRC_DIR}/example_short.c)
     add_executable(evobounds ${CCMAES_SRC_DIR}/example_boundary.c)
 
-    # Link the exevutables with the existing ccmaes library and the standard C lib for math
+    # Link the executables with the existing ccmaes library and the standard C lib for maths
     target_link_libraries(evoshort ccmaes m)
     target_link_libraries(evobounds ccmaes m)
 endif(COMPILE_EXAMPLES)
