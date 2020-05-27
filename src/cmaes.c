@@ -99,6 +99,7 @@
   14/10/18: splitted cmaes_init() into cmaes_init_para() and cmaes_init_final(),
             such that parameters can be set also comparatively safely within the
             code, namely after calling cmaes_init_para(). The order of parameters
+            of readpara_init() has changed to be the same as for cmaes_init().
   14/11/25:  fix warnings from Microsoft C compiler (sherm)
   14/11/26: renamed exported symbols so they begin with a cmaes_prefix.
   
