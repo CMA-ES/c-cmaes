@@ -4,7 +4,7 @@ c-cmaes
 CMA-ES written in ANSI C in a fairly object-oriented style. 
 
 For the general purpose of this software see `doc.txt` or 
-[here](https://www.lri.fr/~hansen/cmaesintro.html), 
+[here](https://cma-es.github.io/), 
 for more documentation on this library see `docfunctions.txt`, 
 for how to start see below.
 
@@ -105,7 +105,7 @@ HOW TO START
   B2d) Change back problem dimension.  
 
   5) Now you are ready to inspect and edit `example_restarts.c` or `example_boundary.c`
-    to plug in the function you want to optimize. Refer to `doc.txt` and [see here](https://www.lri.fr/~hansen/cmaes_inmatlab.html#practical) for
+    to plug in the function you want to optimize. Refer to `doc.txt` and [see here](https://cma-es.github.io/cmaes_sourcecode_page.html#practical) for
     a practical issue on objective function design. Refer to
     `docfunctions.txt` to find more documentation about the functions in 
     this package. 
@@ -118,11 +118,10 @@ HOW TO START
   7) output files are overwritten with each program call.  
 
 
-Questions? [go here](https://github.com/cma-es/c-cma-es/issues/new) or 
-send an email to hansen at lri dot fr. 
+Questions? [go here](https://github.com/cma-es/c-cma-es/issues/new). 
 
 See also: 
-- [Practical hints](https://www.lri.fr/~hansen/cmaes_inmatlab.html#practical)
-- [CMA-ES short intro](https://www.lri.fr/~hansen/cmaesintro.html)
+- [Practical hints](https://cma-es.github.io/cmaes_sourcecode_page.html#practical)
+- [CMA-ES short intro](https://cma-es.github.io)
 - [CMA-ES on wikipedia](http://en.wikipedia.org/wiki/CMA-ES)
 
