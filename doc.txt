@@ -29,12 +29,12 @@ necessarily between zero and one), such that the initial standard
 deviation can be chosen the same for all variables.
 
 
-LINKS
-  http://www.lri.fr/~hansen/cmaesintro.html
-  http://www.lri.fr/~hansen/publications.html
+LINKS:
+        Further introduction: https://cma-es.github.io/
+        Practical hints: https://cma-es.github.io/cmaes_sourcecode_page.html#practical
 
 TUTORIAL:
-	http://www.lri.fr/~hansen/cmatutorial.pdf
+	https://arxiv.org/pdf/1604.00772
 
 REFERENCES:
 
@@ -43,7 +43,7 @@ Hansen, N, and S. Kern (2004).  Evaluating the CMA Evolution
   Conference on Parallel Problem Solving from Nature PPSN VIII,
   Proceedings, pp. 282-291, Berlin: Springer
 
-Hansen, N., S.D. Müller and P. Koumoutsakos (2003): Reducing the
+Hansen, N., S.D. MÃ¼ller and P. Koumoutsakos (2003): Reducing the
   Time Complexity of the Derandomized Evolution Strategy with
   Covariance Matrix Adaptation (CMA-ES). Evolutionary Computation,
   11(1).
