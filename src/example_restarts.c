@@ -55,6 +55,9 @@ int main(int argn, char **args)
 	char c;
 	double *x;
 
+    if(argn > 1) /* avoid compiler warning */
+        printf("%d argument(s)  %s ... unused\n", argn - 1, args[1]);
+
 	/* Put together objective functions */
 	rgpFun[0] = f_sphere;
 	rgpFun[1] = f_elli;

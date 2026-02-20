@@ -24,6 +24,9 @@ int main(int argn, char **args) {
   double *arFunvals, *const*pop, *xfinal;
   int i; 
 
+  if(argn > 1) /* avoid compiler warning */
+    printf("%d argument(s)  %s ... unused\n", argn - 1, args[1]);
+
   /* Initialize everything into the struct evo, 0 means default */
   arFunvals = cmaes_init(&evo, 0, NULL, NULL, 0, 0, "cmaes_initials.par");
   printf("%s\n", cmaes_SayHello(&evo));

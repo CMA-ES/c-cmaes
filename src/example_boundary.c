@@ -36,6 +36,9 @@ int main(int argn, char **args) {
   unsigned long dimension;
   int i; 
 
+  if(argn > 1) /* avoid compiler warning */
+    printf("%d argument(s)  %s ... unused\n", argn - 1, args[1]);
+
   /* initialize boundaries, be sure that initialSigma is smaller than upper minus lower bound */
   cmaes_boundary_transformation_init(&boundaries, lowerBounds, upperBounds, nb_bounds);
   /* Initialize everything into the struct evo, 0 means default */
