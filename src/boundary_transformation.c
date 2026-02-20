@@ -36,8 +36,8 @@ void cmaes_boundary_transformation_init(cmaes_boundary_transformation_t *t,
         _FatalError("init: input upper_bounds or lower_bounds was NULL and len_of_bounds > 1");
 
     /* compute boundaries in pre-image space, al and au */
-    t->al = calloc(t->len_of_bounds, sizeof(double));
-    t->au = calloc(t->len_of_bounds, sizeof(double));
+    t->al = (double *) calloc(t->len_of_bounds, sizeof(double));
+    t->au = (double *) calloc(t->len_of_bounds, sizeof(double));
     if (!t->al || !t->au)
         _FatalError(" in _init(): could not allocate memory");
 
@@ -129,7 +129,7 @@ void cmaes_boundary_transformation_inverse(cmaes_boundary_transformation_t *t,
             y[i] = (ub + au) - 2 * sqrt(au * (ub - y[i]));
     }
     if (11 < 3 || do_assertions) {
-        double *z = calloc(len, sizeof(double));
+        double *z = (double *) calloc(len, sizeof(double));
         for (i = 0; i < len; ++i)
             z[i] = y[i];
         cmaes_boundary_transformation(t, z, y, len);
